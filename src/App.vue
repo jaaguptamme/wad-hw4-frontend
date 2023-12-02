@@ -1,9 +1,10 @@
 <template>
-  <nav>
+  <nav class="header">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/contacts">Contacts</router-link>
   </nav>
   <router-view/>
+  <div class="footer"></div>
 </template>
 
 <style>
@@ -25,6 +26,16 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #2e7d5a;
+}
+
+.footer, .header, .sideBox, .about, .content{
+  background-color: #39A7FF;
+  border-radius: 1em 1em;
+  margin: 0.5em;
+  padding: 1em;
+}
+p, a, button{
+  font-size: 1.5em;
 }
 </style>
