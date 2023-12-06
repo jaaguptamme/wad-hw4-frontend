@@ -2,18 +2,18 @@
   <div id="content">
     <div class="sideBox"></div>
     <div id="Posts">
-      <button v-if = "authResult" @click="Logout">Logout</button>
-      <div @click='this.$router.push("/post/"+post.id)' class="PostText" v-for="post in posts" :key="post.id">
+      <button v-if="authResult" @click="Logout">Logout</button>
+      <div @click='this.$router.push("/post/" + post.id)' class="PostText" v-for="post in posts" :key="post.id">
         <div class="topRow">
-        <p>{{ post.date }}</p>
+          <p>{{ post.date }}</p>
         </div>
-        <p class="text">{{post.body}}</p>
+        <p class="text">{{ post.body }}</p>
         <div class="bottomRow">
         </div>
       </div>
       <div id="botButtons">
         <button @click='this.$router.push("/addpost/")'>Add Post</button>
-        <button>Delete All</button>
+        <button @click="DeleteAllPosts">Delete All</button>
       </div>
     </div>
     <div class="sideBox"></div>
@@ -29,74 +29,97 @@ export default {
   components: {
     HelloWorld
   },
-  data: function() {
-    return{
-      posts:[ ],
+  data: function () {
+    return {
+      posts: [],
       authResult: auth.authenticated()
     }
   }, methods: {
     Logout() {
       fetch("http://localhost:3000/auth/logout", {
-          credentials: 'include', //  Don't forget to specify this if you need cookies
+        credentials: 'include', //  Don't forget to specify this if you need cookies
       })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.log('jwt removed');
-        //console.log('jwt removed:' + auth.authenticated());
-        this.$router.push("/login");
-        //location.assign("/");
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("error logout");
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          console.log('jwt removed');
+          //console.log('jwt removed:' + auth.authenticated());
+          this.$router.push("/login");
+          //location.assign("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error logout");
+        });
     },
+    DeleteAllPosts() {
+      console.log(this.posts[0])
+      for(let post in this.posts){
+        fetch(`http://localhost:3000/posts/${this.posts[post].id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((response) => {
+            console.log(response.data);
+            location.reload();
+            // We are using the router instance of this element to navigate to a different URL location
+          })
+          .catch((e) => {
+            console.log(e);
+          });  
+      }
+    }
   },
-  mounted(){
+  mounted() {
     fetch('http://localhost:3000/posts')
-    .then((response)=>response.json())
-    .then(data=> this.posts=data.posts)
-    .catch(err=>console.log(err.message))
+      .then((response) => response.json())
+      .then(data => this.posts = data.posts)
+      .catch(err => console.log(err.message))
   }
-  
+
 }
 </script>
 <style scoped>
-#content{
-    display: grid;
-    grid-template-columns: 1fr 2.5fr 1fr;
-    text-align: center;
-  }
+#content {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  text-align: center;
+}
 
 @media(max-width: 800px) {
-    .sideBox{
-        display: none;
-    }
-    #content{
-        grid-template-columns: 1fr;
-    }
+  .sideBox {
+    display: none;
+  }
+
+  #content {
+    grid-template-columns: 1fr;
+  }
 }
-#Posts{
-        margin-left: 2em;
-        margin-right: 2em;
-    }
-    .PostText{
-        text-align: left;
-    }
-    #botButtons{
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-    }
-    .PostText{
-        background-color: #87C4FF;
-        border-radius: 1em 1em;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        padding: 1em;
-    }
-     .topRow{
-       text-align: right;
-    }
+
+#Posts {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.PostText {
+  text-align: left;
+}
+
+#botButtons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.PostText {
+  background-color: #87C4FF;
+  border-radius: 1em 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+}
+
+.topRow {
+  text-align: right;
+}
 </style>

@@ -2,7 +2,7 @@
   <div class="form">
     <h3>SignUp</h3>
     <label for="email">Email</label>
-    <input type="email" name="email"  required v-model="email">
+    <input type="email" name="email" required v-model="email">
     <label for="password">Password</label>
     <input type="password" name="password" required v-model="password">
     <button @click="SignUp" class="SignUp">SignUp</button>
@@ -11,18 +11,18 @@
 
 <script>
 export default {
-name: "SignUp", 
+  name: "SignUp",
 
-data: function() {
+  data: function () {
     return {
-   email: '',
-   password: '',
-  }
+      email: '',
+      password: '',
+    }
   },
   methods: {
 
 
-SignUp() {
+    SignUp() {
       var data = {
         email: this.email,
         password: this.password
@@ -33,22 +33,22 @@ SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-          credentials: 'include', //  Don't forget to specify this if you need cookies
-          body: JSON.stringify(data),
+        credentials: 'include', //  Don't forget to specify this if you need cookies
+        body: JSON.stringify(data),
       })
-      .then((response) => response.json())
-      .then((data) => {
-      console.log(data);
-      this.$router.push("/");
-      //location.assign("/");
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("error");
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.$router.push("/");
+          //location.assign("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+        });
     },
-  }, 
-  }
+  },
+}
 </script>
 
 <style scoped>
@@ -60,10 +60,12 @@ SignUp() {
   padding: 40px;
   border-radius: 10px;
 }
+
 h3 {
   text-align: center;
   color: rgb(8, 110, 110);
 }
+
 label {
   color: rgb(8, 110, 110);
   display: inline-block;
@@ -73,6 +75,7 @@ label {
   letter-spacing: 1px;
   font-weight: bold;
 }
+
 input {
   display: block;
   padding: 10px 6px;
@@ -82,6 +85,7 @@ input {
   border-bottom: 1px solid white;
   color: blue;
 }
+
 button {
   background: rgb(8, 110, 110);
   border: 0;
@@ -91,5 +95,4 @@ button {
   border-radius: 20px;
   align-items: center;
   text-align: center;
-}
-</style>
+}</style>
