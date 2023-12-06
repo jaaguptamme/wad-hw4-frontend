@@ -4,6 +4,7 @@ import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
 import ContactsView from '../views/ContactsView.vue'
 import PostView from '../views/PostView.vue'
+import AddPostView from '../views/AddPostView.vue'
 import auth from '../auth'
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/post/:id',
     name: 'post',
     component: PostView,
+  },
+  {
+    path: '/addpost',
+    name: 'addpost',
+    component:AddPostView,
   }
 ]
 

@@ -12,7 +12,7 @@
         </div>
       </div>
       <div id="botButtons">
-        <button>Add Post</button>
+        <button @click='this.$router.push("/addpost/")'>Add Post</button>
         <button>Delete All</button>
       </div>
     </div>
