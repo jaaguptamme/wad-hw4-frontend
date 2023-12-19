@@ -1,6 +1,6 @@
 <template>
       <div class="form">
-        <h3>{{ post.body }}</h3>
+        <h3>A Post</h3>
         <label for="postbody">Body</label>
         <input type="postbody" name="postbody" required v-model="post.body">
         <div class="container">
@@ -35,11 +35,10 @@ export default {
     UpdatePost(){
       var data = {
                 body: this.post.body,
-                id: this.post.id
             };
             // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
-            fetch("http://localhost:3000/posts/update", {
-                method: "POST",
+            fetch(`http://localhost:3000/posts/${this.post.id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -77,14 +76,6 @@ export default {
 </script>
 
 <style scoped>
-.form {
-    max-width: 420px;
-    margin: 30px auto;
-    background: rgb(167, 154, 154);
-    text-align: left;
-    padding: 40px;
-    border-radius: 10px;
-}
 
 h3 {
     text-align: center;
@@ -99,28 +90,6 @@ label {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-}
-
-input {
-    display: block;
-    padding: 10px 6px;
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid white;
-    color: blue;
-}
-
-button {
-    background: rgb(8, 110, 110);
-    border: 0;
-    padding: 10px 20px;
-    margin-top: 20px;
-    color: white;
-    border-radius: 20px;
-    align-items: center;
-    text-align: center;
-    margin-right: 20px;
 }
 
 .center {

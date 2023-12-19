@@ -80,6 +80,8 @@ export default {
 }
 </script>
 <style scoped>
+
+
 #content {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
